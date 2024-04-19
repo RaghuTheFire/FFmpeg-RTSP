@@ -1,4 +1,4 @@
-//g++ -o ffmpegrecorderdemo ffmpegrecorder.cpp video_recoder.cpp -L/usr/local/lib -lavutil -lavcodec -lavformat -ldl -L/usr/lib -lpthread -lz -lswscale -lm 
+
 #include <iostream>
 #include "video_recoder.h"
 /*************************************************************/
