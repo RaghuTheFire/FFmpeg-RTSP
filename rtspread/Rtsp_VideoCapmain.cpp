@@ -14,7 +14,7 @@ int Rtsp_VideoCapture()
 {
     cv::Mat frame;
    
-    VideoCapture cap("rtsp://172.196.128.151:554/1/h264minor");
+    VideoCapture cap("rtsp://");
    
     if (!cap.isOpened())
     {
