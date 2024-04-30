@@ -13,11 +13,9 @@ int main()
 int Rtsp_VideoCapture()
 {
     cv::Mat frame;
-    //VideoCapture cap("rtsp://service:service@172.196.129.152:554/ufirststream?inst=2"); //BEL PF OFFICE
+   
     VideoCapture cap("rtsp://172.196.128.151:554/1/h264minor");
-    //VideoCapture cap("rtsp://admin:admin@172.196.128.155:554/videoinput_1:0/h264_2/media.stm");
-    //VideoCapture cap("rtsp://admin:admin@172.196.128.155:554/videoinput_1:0/h264_1/media.stm");
-    
+   
     if (!cap.isOpened())
     {
         std::cout << "Open capture failed";
