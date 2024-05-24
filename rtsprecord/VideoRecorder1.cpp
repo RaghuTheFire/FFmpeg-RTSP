@@ -2,8 +2,21 @@
 #include <iostream>
 #include <string>
 #include <future>
-#include <ffmpeg/avcodec.h>
-#include <ffmpeg/avformat.h>
+#ifdef __cplusplus
+extern "C"
+{
+  #endif
+  #include <libavformat/avformat.h>
+  #include <libavcodec/avcodec.h>
+  #include <libswscale/swscale.h>
+  #include <libavdevice/avdevice.h>
+  #include <libavutil/imgutils.h>
+  #include <libavutil/opt.h>
+  #include <libavutil/mathematics.h>
+  #include <libavutil/samplefmt.h>
+  #ifdef __cplusplus
+}
+#endif
 
 class VideoRecorder 
 {
@@ -127,3 +140,11 @@ class VideoRecorder
           return true;
       }
 };
+
+
+int main()
+{    
+    VideoRecoder recoder("rtsp://172.196.128.151:554/1/h264minor","test.mp4");
+    recoder.start();    
+    return 0;
+}
