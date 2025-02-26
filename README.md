@@ -6,3 +6,7 @@ g++ -o Rtsp_VideoCapture Rtsp_VideoCapmain.cpp Rtsp_VideoCapture.cpp -L/usr/loca
 # rtsprecord
 # How to Compile
 g++ -o ffmpegrecorderdemo ffmpegrecorder.cpp video_recoder.cpp -L/usr/local/lib -lavutil -lavcodec -lavformat -ldl -L/usr/lib -lpthread -lz -lswscale -lm 
+
+# rtsprstream
+# How to Compile
+g++ -o RtspRestreamer RtspRestreamer.cpp -lavformat -lavcodec -lavutil -lswscale -pthread
