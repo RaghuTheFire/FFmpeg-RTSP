@@ -1,3 +1,35 @@
+/***********************************************************************************************************************************
+     This implementation creates an RTSP restreamer using FFmpeg libraries that can receive an RTSP stream and redistribute it to another RTSP endpoint.
+
+    Key features:
+        Uses modern C++ with RAII principles
+        Thread-safe implementation with proper cleanup
+        Handles stream timing and packet conversion
+        Proper error handling with exceptions
+        Clean shutdown mechanism
+
+    Dependencies:
+        FFmpeg libraries (libavcodec, libavformat, libavutil, libswscale)
+        C++11 or later compiler
+
+    Compilation requires linking against FFmpeg libraries:
+
+g++ -o RtspRestreamer RtspRestreamer.cpp -lavformat -lavcodec -lavutil -lswscale -pthread
+
+    Usage example:
+
+./RtspRestreamer rtsp://source:554/stream rtsp://destination:554/stream
+
+    Important notes:
+        The code handles proper stream timing conversion between input and output
+        Includes proper resource cleanup in case of errors
+        Supports graceful shutdown
+        Thread-safe implementation allows for clean termination
+
+******************************************************************************************************************************************/
+
+
+
 #include <atomic>
 #include <chrono>
 #include <cstdio>
