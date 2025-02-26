@@ -27,9 +27,6 @@ g++ -o RtspRestreamer RtspRestreamer.cpp -lavformat -lavcodec -lavutil -lswscale
         Thread-safe implementation allows for clean termination
 
 ******************************************************************************************************************************************/
-
-
-
 #include <atomic>
 #include <chrono>
 #include <cstdio>
@@ -41,10 +38,10 @@ g++ -o RtspRestreamer RtspRestreamer.cpp -lavformat -lavcodec -lavutil -lswscale
 
 extern "C" 
 {
-#include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-#include <libavutil/avutil.h>
-#include <libswscale/swscale.h>
+     #include <libavcodec/avcodec.h>
+     #include <libavformat/avformat.h>
+     #include <libavutil/avutil.h>
+     #include <libswscale/swscale.h>
 }
 
 class RTSPRestreamer 
@@ -83,8 +80,8 @@ class RTSPRestreamer
     try 
     {
       // Open input
-      if (avformat_open_input(&inputContext, inputUrl_.c_str(), nullptr,
-                              nullptr) < 0) {
+      if (avformat_open_input(&inputContext, inputUrl_.c_str(), nullptr, nullptr) < 0) 
+      {
         throw std::runtime_error("Could not open input stream");
       }
 
@@ -94,15 +91,15 @@ class RTSPRestreamer
       }
 
       // Create output context
-      avformat_alloc_output_context2(&outputContext, nullptr, "rtsp",
-                                     outputUrl_.c_str());
+      avformat_alloc_output_context2(&outputContext, nullptr, "rtsp", outputUrl_.c_str());
       if (!outputContext) 
       {
         throw std::runtime_error("Could not create output context");
       }
 
       // Copy streams
-      for (unsigned int i = 0; i < inputContext->nb_streams; i++) {
+      for (unsigned int i = 0; i < inputContext->nb_streams; i++) 
+      {
         AVStream* inStream = inputContext->streams[i];
         AVStream* outStream = avformat_new_stream(outputContext, nullptr);
         if (!outStream) 
@@ -110,9 +107,8 @@ class RTSPRestreamer
           throw std::runtime_error("Failed to allocate output stream");
         }
 
-        if (avcodec_parameters_copy(outStream->codecpar, inStream->codecpar) <
-            0) 
-            {
+        if (avcodec_parameters_copy(outStream->codecpar, inStream->codecpar) < 0) 
+        {
           throw std::runtime_error("Failed to copy codec params");
         }
       }
@@ -140,9 +136,7 @@ class RTSPRestreamer
         AVStream* outStream = outputContext->streams[packet.stream_index];
 
         packet.pts = av_rescale_q_rnd(packet.pts, inStream->time_base, outStream->time_base,static_cast<AVRounding>(AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX));
-
         packet.dts = av_rescale_q_rnd(packet.dts, inStream->time_base, outStream->time_base,static_cast<AVRounding>(AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX));
-
         packet.duration = av_rescale_q(packet.duration, inStream->time_base,outStream->time_base);
 
         if (av_interleaved_write_frame(outputContext, &packet) < 0) 
